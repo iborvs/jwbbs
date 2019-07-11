@@ -16,4 +16,13 @@
         <servlet-name>UsrLogin</servlet-name>
         <url-pattern>/action/UsrLogin</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <display-name>UsrRegister</display-name>
+        <servlet-name>UsrRegister</servlet-name>
+        <servlet-class>servlets.UsrRegister</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsrRegister</servlet-name>
+        <url-pattern>/action/UsrRegister</url-pattern>
+    </servlet-mapping>
 </web-app>
