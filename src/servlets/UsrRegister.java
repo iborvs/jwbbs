@@ -1,5 +1,6 @@
 package servlets;
 
+import dao.UserDAO;
 import util.DBConn;
 
 import javax.servlet.ServletException;
@@ -26,26 +27,15 @@ public class UsrRegister extends HttpServlet {
         String userpwd=request.getParameter("password");
         String email=request.getParameter("email");
         String qq=request.getParameter("qq");
-            String sql="select * FROM USER where username='"+username+"';";
-            try {
-                Connection conn=DBConn.getConn();
-                Statement stmt= conn.createStatement();
-                ResultSet rs=stmt.executeQuery(sql);
-                if(rs.next()){
+                if(UserDAO.findUser(username) == 1)
                     writer.println("failed");
-                }else{
+                else{
                     java.util.Date date = new java.util.Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd") ; //使用了默认的格式创建了一个日期格式化对象。
                     String ndate = dateFormat.format(date); //可以把日期转换转指定格式的字符串
                     String date2=" ";
-                    sql="INSERT INTO USER VALUES ('"+username+"','"+userpwd+"', '"+ndate+"', '"+date2+"',0,'"+email+"','"+qq+"');";
-                    stmt = conn.createStatement();
-                    stmt.executeUpdate(sql);
+                    if(UserDAO.addUser(username,userpwd,ndate,email,qq) == 1)
                         writer.println("success");
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                writer.println("failed");
-            }
         }
     }
