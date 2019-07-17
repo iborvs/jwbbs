@@ -25,4 +25,13 @@
         <servlet-name>UsrRegister</servlet-name>
         <url-pattern>/action/UsrRegister</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <display-name>UploadAvatar</display-name>
+        <servlet-name>UploadAvatar</servlet-name>
+        <servlet-class>servlets.UploadAvatar</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadAvatar</servlet-name>
+        <url-pattern>/action/UploadAvatar</url-pattern>
+    </servlet-mapping>
 </web-app>

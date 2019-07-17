@@ -1,0 +1,12 @@
+
+.mx-auto {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+#preview{
+    margin-bottom: 50px;
+}
+.userCard{
+    witdh:720px;
+}
