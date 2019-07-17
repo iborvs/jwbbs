@@ -4,7 +4,8 @@ function preview(file) {
         var prreader = new FileReader();
         var reader = new FileReader();
         reader.onload = function (evt) {
-            prevDiv.innerHTML = '<img id="avatarPreview" style="max-width:350px" class="avatar" src="' + evt.target.result + '"/>';
+            $('#preview').css({"width":"400px","height":"400px"});
+            prevDiv.innerHTML = '<img id="avatarPreview"class="avatar" src="' + evt.target.result + '"/>';
             $('#avatarPreview').cropper({
                 aspectRatio: 1 / 1,
                 autoCropArea: 1,
@@ -29,6 +30,6 @@ function preview(file) {
         };
         prreader.readAsArrayBuffer(file.files[0]);
     } else {
-        prevDiv.innerHTML = '<div class="img" class="avatar" style="max-width:350px" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+        prevDiv.innerHTML = '<div class="img" class="avatar" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
     }
 }

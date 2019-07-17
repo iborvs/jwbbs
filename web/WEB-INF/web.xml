@@ -34,4 +34,13 @@
         <servlet-name>UploadAvatar</servlet-name>
         <url-pattern>/action/UploadAvatar</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <display-name>UsrInfoUpdate</display-name>
+        <servlet-name>UsrInfoUpdate</servlet-name>
+        <servlet-class>servlets.UsrInfoUpdate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsrInfoUpdate</servlet-name>
+        <url-pattern>/action/UsrInfoUpdate</url-pattern>
+    </servlet-mapping>
 </web-app>

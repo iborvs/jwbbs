@@ -14,6 +14,7 @@
     <script src="../../resources/js/main.js"></script>
     <script src="../../resources/js/cropper.min.js"></script>
     <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/jquery.form.min.js"></script>
     <script src="../../resources/js/avatar.js"></script>
     <link href="../../resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../resources/css/main.css" rel="stylesheet" type="text/css">
@@ -22,27 +23,33 @@
 </head>
 <body>
 <div class="container">
-    <div class="card userCard">
-        <div class="card-body">
+    <div class="panel panel-default">
+        <div class="panel-body">
             <div class="row">
                 <div class="d-md-none col-12">
                 </div>
                 <div class="col">
                     <div class="row">
-                        <div class="mx-auto">
+                        <div class="mx-auto user-info ">
                             <div id="profile">
                                 <%@ include file="usrInfo.jsp"%>
-                                <form action="/user" method="POST" enctype="multipart/form-data">
+                                <form action="/user" method="POST" enctype="application/x-www-form-urlencoded" id="userinfo-form">
                                     <div class="row">
-                                        <div class="col-12 mx-auto">
+                                        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
                                             <div class="form-group">
+                                                <label for="nickname">用户ID</label>
+                                                <input type="text" name="username" id="username" class="form-control nickname-input">
                                                 <label for="nickname">昵称</label>
                                                 <input type="text" name="nickname" id="nickname" class="form-control nickname-input">
+                                                <label for="nickname">qq</label>
+                                                <input type="text" name="qq" id="qq" class="form-control nickname-input">
+                                                <label for="nickname">email</label>
+                                                <input type="text" name="email" id="email" class="form-control nickname-input">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mx-auto">
-                                        <input class="btn btn-success" type="submit" name="submit" value="保存">
+                                        <input class="btn btn-success" type="button" name="submit" value="保存" onclick="update()">
                                     </div>
                                 </form>
                             </div>
@@ -53,7 +60,28 @@
         </div>
     </div>
 </div>
-
+<script>
+    function update(){
+        $.post(
+            '${pageContext.request.contextPath}/action/UsrInfoUpdate',
+            $("#userinfo-form").serialize(),
+            function(response,status,xhr) {
+                if(response!=null){
+                    alert(response);
+                    if( response.indexOf("success") != -1 ){
+                        alert("修改成功!");
+                    }
+                    else {
+                        alert("修改失败！");
+                    }
+                }
+                else{
+                    alert("失去连接,请检查网络");
+                }
+            }
+        );
+    }
+</script>
 <%@ include file="../footer.jsp"%>
 </body>
 </html>

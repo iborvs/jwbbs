@@ -45,4 +45,20 @@ public class UserDAO {
             state=1;
         return state;
     }
+    public static int editInfo(String name ,String email,String qq,String nickname){
+        int state=0;
+        String sql = "update USER SET email='"+email+"',qq='"+ qq +"',nickname='"+ nickname+"' where username='"+name+"';";
+        int rs = DA.execUpdate(sql);
+        if(rs>0)
+            state=1;
+        return state;
+    }
+    public static int editPwd(String name ,String newPwd){
+        int state=0;
+        String sql = "update USER SET userpwd='"+newPwd+"' where username='"+name+"';";
+        int rs = DA.execUpdate(sql);
+        if(rs>0)
+            state=1;
+        return state;
+    }
 }

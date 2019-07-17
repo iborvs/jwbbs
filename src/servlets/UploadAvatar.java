@@ -27,12 +27,7 @@ import java.io.IOException;
 public class UploadAvatar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String name=request.getParameter("username");
-        String email=request.getParameter("email");
-        String headimg=request.getParameter("headimg");
         List<Double> paras = new ArrayList<>();
-        System.out.println(name + email + headimg);
-
         Boolean isMultipart=ServletFileUpload.isMultipartContent(request);
         if (!isMultipart) {
             return; //如果不是就不用上传了
@@ -50,7 +45,14 @@ public class UploadAvatar extends HttpServlet {
                 } else {
                     //上传文件的控件
                     System.out.println(fileName + "->" + item.getName()); //一个的标签的name，一个是文件的name
-                    item.write(new File("/", item.getName())); //把上传的文件保存到某个文件中
+                    String filePath=this.getServletConfig().getServletContext().getRealPath("/");
+                    String realPath = filePath+"public/avatar/"+ item.getName();
+                    System.out.println(realPath);
+                    File file=new File(realPath);
+                    if(file.exists()&&file.isFile())
+                        file.delete();
+                    item.write(new File(realPath)); //把上传的文件保存到某个文件中
+                    img_cropper(realPath , paras.get(0).intValue() , paras.get(1).intValue() , paras.get(2).intValue() , paras.get(3).intValue());
                 }
             }
         }
@@ -58,14 +60,14 @@ public class UploadAvatar extends HttpServlet {
             e.printStackTrace();
         }
         }
-    public static BufferedImage img_cropper(String src,int x,int y,int width,int height) {
+    private static BufferedImage img_cropper(String src,int x,int y,int width,int height) {
         String suffix = src.substring(src.lastIndexOf(".") + 1);
         BufferedImage bi=file2img(src);
         BufferedImage back=bi.getSubimage(x,y,width,height);
         img2file(back,suffix,src);
         return back;
     }
-    public static BufferedImage file2img(String imgpath) {
+    private static BufferedImage file2img(String imgpath) {
         try {
             BufferedImage bufferedImage=ImageIO.read(new File(imgpath));
             return bufferedImage;
@@ -74,7 +76,7 @@ public class UploadAvatar extends HttpServlet {
             return null;
         }
     }
-    public static void img2file(BufferedImage img,String extent,String newfile) {
+    private static void img2file(BufferedImage img,String extent,String newfile) {
         try {
             ImageIO.write(img, extent, new File(newfile));
         } catch (Exception e) {
