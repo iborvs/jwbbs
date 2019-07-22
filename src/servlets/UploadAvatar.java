@@ -46,7 +46,7 @@ public class UploadAvatar extends HttpServlet {
                     //上传文件的控件
                     System.out.println(fileName + "->" + item.getName()); //一个的标签的name，一个是文件的name
                     String filePath=this.getServletConfig().getServletContext().getRealPath("/");
-                    String realPath = filePath+"public/avatar/"+ item.getName();
+                    String realPath = filePath+"public/temp/"+ item.getName();
                     System.out.println(realPath);
                     File file=new File(realPath);
                     if(file.exists()&&file.isFile())

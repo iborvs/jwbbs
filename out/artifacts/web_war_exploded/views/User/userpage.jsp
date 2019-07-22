@@ -23,11 +23,9 @@
 </head>
 <body>
 <div class="container">
-    <div class="panel panel-default">
+    <div class="panel panel-default user-info-panel">
         <div class="panel-body">
             <div class="row">
-                <div class="d-md-none col-12">
-                </div>
                 <div class="col">
                     <div class="row">
                         <div class="mx-auto user-info ">
@@ -45,6 +43,9 @@
                                                 <input type="text" name="qq" id="qq" class="form-control nickname-input">
                                                 <label for="nickname">email</label>
                                                 <input type="text" name="email" id="email" class="form-control nickname-input">
+                                                <div style="display: none">
+                                                    <input type="text" name="avatar" id="if-avatar" class="form-control nickname-input">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -67,7 +68,6 @@
             $("#userinfo-form").serialize(),
             function(response,status,xhr) {
                 if(response!=null){
-                    alert(response);
                     if( response.indexOf("success") != -1 ){
                         alert("修改成功!");
                     }
@@ -75,7 +75,7 @@
                         alert("修改失败！");
                     }
                 }
-                else{
+                if(status !=200){
                     alert("失去连接,请检查网络");
                 }
             }

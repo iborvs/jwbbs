@@ -13,16 +13,17 @@
         height: 200px;
     }
 </style>
-
+<%
+    Cookie c = new Cookie("username", "ib");
+    response.addCookie(c);
+%>
 <form action="${pageContext.request.contextPath}/action/UploadAvatar" method="POST" enctype="multipart/form-data" id="uploadFrm">
-    <div class="row">
         <div class="mx-auto">
-            <div id="preview"><img id="avatarPreview" class="avatar" src="../../public/avatar/iborvs.png"/></div>
+            <div id="preview"><img id="avatarPreview" class="avatar" src="../../public/avatar/${cookie.username.value||"iborvs"}.png"/></div>
             <div style="display: none">
                 <input type="file" id="avatarUpload" name="avatarPic" onchange="preview(this)"/>
             </div>
         </div>
-    </div>
     <input id="avatarUploadCpWidth" type="hidden" name="crop_width">
     <input id="avatarUploadCpHeight" type="hidden" name="crop_height">
     <input id="avatarUploadCpX" type="hidden" name="crop_x">
@@ -54,6 +55,10 @@
             processData: false,
             contentType: false
         }).done(function(res) {
+            var pos=$('#avatarUpload').val().lastIndexOf("\\");//查找最后一个\的位置
+            var filename =  $('#avatarUpload').val().substring(pos+1);
+            $('#if-avatar').val(filename);
+            alert($('#if-avatar').val());
         }).fail(function(res) {});
     }
 </script>
